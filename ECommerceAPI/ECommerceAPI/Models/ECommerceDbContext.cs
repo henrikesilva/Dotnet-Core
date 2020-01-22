@@ -14,5 +14,10 @@ namespace ECommerceAPI.Models
 
         }
         public DbSet<Produto> Produtos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Produto>().ToTable("Produto");
+        }
     }
 }
