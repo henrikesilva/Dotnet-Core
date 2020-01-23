@@ -25,7 +25,7 @@ namespace ECommerceAPI.Repository
 
         public List<Usuario> ListarTodos()
         {
-            return _context.Usuarios.ToList();
+            return _context.Usuarios.Include(u => u.Perfil).ToList();
         }
 
         public Usuario SelecionarPorId(int id)

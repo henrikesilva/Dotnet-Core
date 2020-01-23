@@ -21,8 +21,20 @@ namespace ECommerceAPI.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Perfil>().ToTable("Perfil");
-            modelBuilder.Entity<Usuario>().ToTable("Usuario");
-            modelBuilder.Entity<Produto>().ToTable("Produto");
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasOne(d => d.Perfil).WithMany(p => p.Usuarios).HasForeignKey(d => d.IdPerfil);
+                entity.ToTable("Usuario");
+            });
+                
+            modelBuilder.Entity<Produto>(entity =>
+            {
+                entity.HasOne(c => c.UsuarioCriador).WithMany(u => u.Produtos).HasForeignKey(p => p.IdUsuario);
+                entity.ToTable("Produto");
+            });
+                
+                
         }
     }
 }
