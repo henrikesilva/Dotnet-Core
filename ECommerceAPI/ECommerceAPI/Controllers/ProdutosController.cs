@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ECommerceAPI.Models;
+using ECommerceAPI.Repository;
 
 namespace ECommerceAPI.Controllers
 {
@@ -13,25 +14,25 @@ namespace ECommerceAPI.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private readonly ECommerceDbContext _context;
+        private readonly ProdutoRepository _produtoRepository;
 
         public ProdutosController(ECommerceDbContext context)
         {
-            _context = context;
+            _produtoRepository = new ProdutoRepositoryImpl(context);
         }
 
         // GET: api/Produtos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Produto>>> GetProdutos()
         {
-            return await _context.Produtos.ToListAsync();
+            return _produtoRepository.ListarTodos();
         }
 
         // GET: api/Produtos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Produto>> GetProduto(int id)
         {
-            var produto = await _context.Produtos.FindAsync(id);
+            var produto = _produtoRepository.SelecionarPorId(id);
 
             if (produto == null)
             {
@@ -52,25 +53,9 @@ namespace ECommerceAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(produto).State = EntityState.Modified;
+            _produtoRepository.Atualizar(produto);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProdutoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(produto);
         }
 
         // POST: api/Produtos
@@ -81,9 +66,12 @@ namespace ECommerceAPI.Controllers
         {
             produto.Ativo = true;
             produto.DataModificacao = DateTime.Now;
-            _context.Produtos.Add(produto);
-            await _context.SaveChangesAsync();
+            _produtoRepository.Cadastrar(produto);
 
+            if(produto.Id == 0)
+            {
+                return NoContent();
+            }
             return CreatedAtAction("GetProduto", new { id = produto.Id }, produto);
         }
 
@@ -91,21 +79,16 @@ namespace ECommerceAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Produto>> DeleteProduto(int id)
         {
-            var produto = await _context.Produtos.FindAsync(id);
+            var produto = _produtoRepository.SelecionarPorId(id);
             if (produto == null)
             {
                 return NotFound();
             }
 
-            _context.Produtos.Remove(produto);
-            await _context.SaveChangesAsync();
+            _produtoRepository.Remover(id);
 
-            return produto;
+            return Ok("Produto Deletado");
         }
 
-        private bool ProdutoExists(int id)
-        {
-            return _context.Produtos.Any(e => e.Id == id);
-        }
     }
 }
