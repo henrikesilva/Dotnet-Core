@@ -11,5 +11,6 @@ namespace ECommerceAPI.Repository
         void Gravar(Usuario usuario);
         List<Usuario> ListarTodos();
         Usuario SelecionarPorId(int id);
+        Usuario BuscaPorLoginEmailSenha(string login, string email, string senha);
     }
 }

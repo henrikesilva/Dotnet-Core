@@ -14,6 +14,13 @@ namespace ECommerceAPI.Repository
         {
             _context = context;
         }
+
+        public Usuario BuscaPorLoginEmailSenha(string login, string email, string senha)
+        {
+            return _context.Usuarios.Include(u => u.Perfil).Where(u => u.Senha == senha 
+            && (u.Login == login || u.Email == email)).FirstOrDefault();
+        }
+
         public void Gravar(Usuario usuario)
         {
             if (!Exists(usuario))

@@ -12,7 +12,6 @@ namespace ECommerceAPI.Models
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Login { get; set; }
-        [JsonIgnore]
         public string Senha { get; set; }
         public bool Ativo  { get; set; }
         public int IdPerfil { get; set; }
