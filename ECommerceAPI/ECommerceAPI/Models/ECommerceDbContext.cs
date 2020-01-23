@@ -14,9 +14,14 @@ namespace ECommerceAPI.Models
 
         }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Perfil> Perfis { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Perfil>().ToTable("Perfil");
+            modelBuilder.Entity<Usuario>().ToTable("Usuario");
             modelBuilder.Entity<Produto>().ToTable("Produto");
         }
     }
