@@ -19,19 +19,23 @@ namespace ECommerceAPI.Controllers
         private readonly PerfilRepository _perfilRepository;
         private readonly UsuarioRepository _usuarioRepository;
         private readonly EstoqueRepository _estoqueRepository;
-        public InitialController(ECommerceDbContext context)
+        public InitialController(ECommerceDbContext context,
+                ProdutoRepository produtoRepository,
+                PerfilRepository perfilRepository,
+                UsuarioRepository usuarioRepository,
+                EstoqueRepository estoqueRepository)
         {
-            _produtoRepository = new ProdutoRepositoryImpl(context);
-            _perfilRepository = new PerfilRepositoryImpl(context);
-            _usuarioRepository = new UsuarioRepositoryImpl(context);
-            _estoqueRepository = new EstoqueRepositoryImpl(context);
+            _produtoRepository = produtoRepository;
+            _perfilRepository = perfilRepository;
+            _usuarioRepository = usuarioRepository;
+            _estoqueRepository = estoqueRepository;
         }
 
         [HttpGet]
         public ActionResult Initiate()
         {
             var perfilAdmin = new Perfil() { Nome = "ADMIN" };
-            var perfilUser = new Perfil() { Nome = "USUARIO" };
+            var perfilUser = new Perfil() { Nome = "USER" };
 
             _perfilRepository.Gravar(perfilAdmin);
             _perfilRepository.Gravar(perfilUser);

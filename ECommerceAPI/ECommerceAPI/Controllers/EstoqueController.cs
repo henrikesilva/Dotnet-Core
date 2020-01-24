@@ -16,9 +16,9 @@ namespace ECommerceAPI.Controllers
     {
         private readonly EstoqueRepository _estoqueRepository;
 
-        public EstoqueController(ECommerceDbContext context)
+        public EstoqueController(EstoqueRepository estoqueRepository)
         {
-            _estoqueRepository = new EstoqueRepositoryImpl(context);
+            _estoqueRepository = estoqueRepository;
         }
 
         [HttpGet]

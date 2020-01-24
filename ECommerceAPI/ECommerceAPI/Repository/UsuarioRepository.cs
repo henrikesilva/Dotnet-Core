@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Repository
 {
-    interface UsuarioRepository
+    public interface UsuarioRepository
     {
         void Gravar(Usuario usuario);
         List<Usuario> ListarTodos();

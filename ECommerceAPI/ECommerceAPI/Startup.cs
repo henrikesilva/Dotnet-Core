@@ -8,6 +8,7 @@ using ECommerceAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ECommerceAPI.Repository;
 
 namespace ECommerceAPI
 {
@@ -26,6 +27,12 @@ namespace ECommerceAPI
             //services.AddDbContext<ECommerceDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<ECommerceDbContext>(opt => opt.UseInMemoryDatabase("Ecommerce"));
             services.AddControllers();
+
+            services.AddScoped<ProdutoRepository, ProdutoRepositoryImpl>();
+            services.AddScoped<PerfilRepository, PerfilRepositoryImpl>();
+            services.AddScoped<UsuarioRepository, UsuarioRepositoryImpl>();
+            services.AddScoped<EstoqueRepository, EstoqueRepositoryImpl>();
+            services.AddScoped<VitrineRepository, VitrineRepositoryImpl>();
 
             var key = Encoding.ASCII.GetBytes(ChavePrivada.Secret);
             services.AddAuthentication(auth =>

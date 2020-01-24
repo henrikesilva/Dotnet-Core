@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Repository
 {
-    interface EstoqueRepository
+    public interface EstoqueRepository
     {
         bool Cadastrar(Estoque estoque);
         bool Atualizar(Estoque estoque);

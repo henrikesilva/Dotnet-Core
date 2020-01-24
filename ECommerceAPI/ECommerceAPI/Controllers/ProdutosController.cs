@@ -18,9 +18,9 @@ namespace ECommerceAPI.Controllers
     {
         private readonly ProdutoRepository _produtoRepository;
 
-        public ProdutosController(ECommerceDbContext context)
+        public ProdutosController(ProdutoRepository produtoRepository)
         {
-            _produtoRepository = new ProdutoRepositoryImpl(context);
+            _produtoRepository = produtoRepository;
         }
 
         // GET: api/Produtos

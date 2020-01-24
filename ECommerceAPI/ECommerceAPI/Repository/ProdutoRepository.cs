@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Repository
 {
-    interface ProdutoRepository
+    public interface ProdutoRepository
     {
         void Cadastrar(Produto produto);
         void Atualizar(Produto produto);

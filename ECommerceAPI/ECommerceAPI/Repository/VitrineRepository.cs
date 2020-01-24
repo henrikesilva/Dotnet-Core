@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Repository
 {
-    public interface PerfilRepository
+    public interface VitrineRepository
     {
-        void Gravar(Perfil perfil);
-        List<Perfil> ListarTodos();
+        List<Vitrine> ListarVitrineAtivas();
+        bool ValidaQuantidadeProduto(int idProduto);
     }
 }

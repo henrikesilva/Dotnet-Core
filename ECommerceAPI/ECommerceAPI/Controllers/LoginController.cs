@@ -17,9 +17,9 @@ namespace ECommerceAPI.Controllers
     {
         
         private readonly UsuarioRepository _usuarioRepository;
-        public LoginController(ECommerceDbContext context)
+        public LoginController(UsuarioRepository usuarioRepository)
         {
-            _usuarioRepository = new UsuarioRepositoryImpl(context);
+            _usuarioRepository = usuarioRepository;
         }
 
         [HttpPost]
