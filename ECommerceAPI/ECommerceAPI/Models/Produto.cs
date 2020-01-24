@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ECommerceAPI.Models
@@ -19,5 +20,7 @@ namespace ECommerceAPI.Models
         public DateTime DataModificacao { get; set; }
         public int IdUsuario { get; set; }
         public Usuario UsuarioCriador { get; set; }
+        [JsonIgnore]
+        public virtual Estoque estoque { get; set; }
     }
 }

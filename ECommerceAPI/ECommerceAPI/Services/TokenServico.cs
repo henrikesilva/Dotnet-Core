@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Services
 {
-    public class TokenServico
+    public static class TokenServico
     {
         public static string GenerateToken(Usuario usuario)
         {

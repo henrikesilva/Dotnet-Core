@@ -17,7 +17,7 @@ namespace ECommerceAPI.Repository
 
         public Usuario BuscaPorLoginEmailSenha(string login, string email, string senha)
         {
-            return _context.Usuarios.Include(u => u.Perfil).Where(u => u.Senha == senha 
+            return _context.Usuarios.Include(u => u.Perfil).Where(u => u.Ativo == true && u.Senha == senha 
             && (u.Login == login || u.Email == email)).FirstOrDefault();
         }
 
@@ -32,9 +32,8 @@ namespace ECommerceAPI.Repository
 
         public List<Usuario> ListarTodos()
         {
-            return _context.Usuarios.Include(u => u.Perfil).ToList();
+            return SelecionaDadosEspecificos(_context.Usuarios).ToList();
         }
-
         public Usuario SelecionarPorId(int id)
         {
             return _context.Usuarios.Find(id);
@@ -43,6 +42,20 @@ namespace ECommerceAPI.Repository
         private bool Exists(Usuario usuario)
         {
             return _context.Perfis.Any(e => e.Nome == usuario.Nome);
+        }
+
+        private IQueryable<Usuario> SelecionaDadosEspecificos(IQueryable<Usuario> query)
+        {
+            return query.Select(u => new Usuario()
+            {
+                Login = u.Login,
+                Nome = u.Nome,
+                Email = u.Email,
+                Id = u.Id,
+                Ativo = u.Ativo,
+                DataModificacao = u.DataModificacao,
+                IdPerfil = u.IdPerfil,
+            });
         }
     }
 }
