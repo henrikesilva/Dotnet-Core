@@ -8,9 +8,9 @@ namespace ECommerceAPI.Repository
 {
     interface EstoqueRepository
     {
-        void Cadastrar(Estoque estoque);
-        void Atualizar(Estoque estoque);
-        void Remover(int id);
+        bool Cadastrar(Estoque estoque);
+        bool Atualizar(Estoque estoque);
+        bool Remover(int id);
         Estoque SelecionarPorId(int id);
         List<Estoque> ListarTodos();
     }

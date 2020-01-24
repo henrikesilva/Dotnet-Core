@@ -36,28 +36,47 @@ namespace ECommerceAPI.Controllers
         [HttpPost]
         public ActionResult<Estoque> Salvar(Estoque estoque)
         {
-            _estoqueRepository.Cadastrar(estoque);
-            return Created("api/[controller]", estoque);
+            estoque.DataModificacao = DateTime.Now;
+            if (_estoqueRepository.Cadastrar(estoque))
+            {
+                return Created("api/[controller]", estoque);
+            }
+            else
+            {
+                return BadRequest("Estoque já existe para o produto informado");
+            }
         }
 
         [HttpPut("{id}")]
         public ActionResult<Estoque> Atualizar(int id, Estoque estoque)
         {
-            if(id != estoque.Id)
+            if (id != estoque.Id)
             {
-                return NotFound("Id e Produto informados, não são compatíveis");
+                return NotFound("Id e Estoque informados, não são compatíveis");
             }
 
-            _estoqueRepository.Atualizar(estoque);
-
-            return Ok(estoque);
+            estoque.DataModificacao = DateTime.Now;
+            if (_estoqueRepository.Atualizar(estoque))
+            {
+                return Ok(estoque);
+            }
+            else
+            {
+                return NotFound("Estoque não encontrado");
+            }
         }
 
         [HttpDelete("{id}")]
         public ActionResult Deletar(int id)
         {
-            _estoqueRepository.Remover(id);
-            return Ok("Estoque removido com sucesso!");
+            if (_estoqueRepository.Remover(id))
+            {
+                return Ok("estoque removido com sucesso");
+            }
+            else
+            {
+                return NotFound("Estoque não encontrado");
+            }
         }
     }
 }
