@@ -34,6 +34,7 @@ namespace ECommerceAPI.Controllers
         [HttpGet]
         public ActionResult Initiate()
         {
+
             var perfilAdmin = new Perfil() { Nome = "ADMIN" };
             var perfilUser = new Perfil() { Nome = "USER" };
 

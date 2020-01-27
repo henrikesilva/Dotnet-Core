@@ -14,6 +14,9 @@ namespace ECommerceAPI.Models
         public string Nome { get; set; }
         [Required]
         public decimal? Preco { get; set; }
+
+        [Required]
+        public decimal? PrecoVenda { get; set; }
         [Required]
         public string Descricao { get; set; }
         public bool Ativo { get; set; }
